@@ -9,8 +9,8 @@ Bleach episode you just started is filler, mixed canon/filler, or manga canon.
   status and says when canon resumes.
 - The toolbar icon carries a letter for the current tab: `F` filler, `M` mixed,
   `C` canon.
-- Clicking the icon shows the status of the current episode, the run it belongs
-  to, and how many episodes away the next filler and next mixed runs are.
+- Clicking the icon answers one question. Filler shows when canon resumes.
+  Canon and mixed show when the next filler run starts.
 
 Canon episodes stay quiet by default. Untick "Only pop up for filler and mixed"
 in the popup to get a short green toast on canon episodes too.

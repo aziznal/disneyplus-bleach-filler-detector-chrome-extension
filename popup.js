@@ -14,13 +14,6 @@
 
   var el = function (id) { return document.getElementById(id); };
 
-  function runLabel(run) {
-    if (!run) return "—";
-    return run.start === run.end
-      ? "episode " + run.start
-      : run.start + "–" + run.end + " (" + run.length + ")";
-  }
-
   function render(info) {
     current = info;
     var found = info && info.abs && info.seriesOk !== false;
@@ -43,32 +36,37 @@
     var abs = info.abs;
     var status = D.statusOf(abs);
     var run = D.runOf(abs);
-    var nf = D.nextRun(abs, ["filler"]);
-    var nm = D.nextRun(abs, ["mixed"]);
 
     el("kind").textContent = D.LABELS[status];
     el("kind").style.color = D.COLORS[status];
-    el("sub").textContent = "Episode " + abs + (info.raw ? " · " + info.raw.replace(/\s+/g, " ") : "");
+    el("sub").textContent = "Episode " + abs + (info.raw ? " \u00b7 " + info.raw.replace(/\s+/g, " ") : "");
 
-    var detail;
+    // One answer: filler means "when does canon come back", anything watchable
+    // means "when does the next filler run start".
+    var answer = "";
+    var away = "";
     if (status === "filler") {
-      detail = run.end < D.LAST_EPISODE
-        ? "Safe to skip. Canon resumes at episode " + (run.end + 1) + ", " + (run.end + 1 - abs) + " episodes away."
-        : "Safe to skip. This is the last run of the show.";
-    } else if (status === "mixed") {
-      detail = "Part canon, part filler. Worth watching.";
-    } else if (status === "canon") {
-      detail = nf
-        ? "Clear until episode " + nf.start + ", " + (nf.start - abs) + " episodes away."
-        : "No filler left after this point.";
+      if (run.end < D.LAST_EPISODE) {
+        answer = "Canon resumes at episode " + (run.end + 1) + ".";
+        away = (run.end + 1 - abs) + " episodes away.";
+      } else {
+        answer = "Last run of the show.";
+      }
+    } else if (status === "canon" || status === "mixed") {
+      var nf = D.nextRun(abs, ["filler"]);
+      if (nf) {
+        answer = "Next filler at episode " + nf.start + ".";
+        away = (nf.start - abs) + " episodes away.";
+      } else {
+        answer = "No filler left after this point.";
+      }
     } else {
-      detail = "Episode " + abs + " sits outside the 1–366 list. Check the numbering below.";
+      answer = "Episode " + abs + " sits outside the 1\u2013366 list.";
+      away = "Check the numbering below.";
     }
-    el("detail").textContent = detail;
+    el("answer").textContent = answer;
+    el("away").textContent = away;
 
-    el("run").textContent = run ? D.LABELS[run.status] + ", " + runLabel(run) : "—";
-    el("next-filler").textContent = nf ? runLabel(nf) + ", in " + (nf.start - abs) : "none left";
-    el("next-mixed").textContent = nm ? runLabel(nm) + ", in " + (nm.start - abs) : "none left";
     el("actual").value = abs;
   }
 

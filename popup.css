@@ -8,18 +8,12 @@ body {
 }
 .wrap { padding: 14px 16px 12px; }
 .panel { min-height: 54px; }
-.kind { font-size: 17px; font-weight: 700; letter-spacing: 0.2px; }
+.kind { font-size: 21px; font-weight: 700; letter-spacing: 0.2px; }
 .kind.muted { color: #8b8b94; font-size: 15px; }
 .sub { margin-top: 2px; font-size: 12px; color: #a0a0aa; }
-.detail { margin-top: 10px; color: #d4d4da; }
+.answer { margin-top: 12px; font-size: 15px; color: #f2f2f5; }
+.away { margin-top: 3px; font-size: 12px; color: #8b8b94; }
 .hint { margin: 8px 0 0; color: #8b8b94; font-size: 12px; }
-.rows { margin-top: 12px; border-top: 1px solid #26262e; }
-.row {
-  display: flex; justify-content: space-between; gap: 12px;
-  padding: 7px 0; border-bottom: 1px solid #1d1d24;
-}
-.row span { color: #8b8b94; }
-.row b { font-weight: 600; text-align: right; }
 .tools { margin-top: 14px; border-top: 1px solid #26262e; padding-top: 10px; }
 summary { cursor: pointer; color: #a0a0aa; font-size: 12px; }
 .calibrate { display: flex; align-items: center; gap: 6px; margin-top: 8px; }

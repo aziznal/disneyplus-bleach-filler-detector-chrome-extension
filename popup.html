@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>Bleach Filler Radar</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <div id="state-waiting" class="panel">
+        <div class="kind muted">Waiting for the episode</div>
+        <p class="hint" id="waiting-hint">
+          Open a Bleach episode on Disney+. The title bug only shows for a few
+          seconds, so move the mouse over the player or skip back a little.
+        </p>
+      </div>
+
+      <div id="state-found" class="panel" hidden>
+        <div class="kind" id="kind">Filler</div>
+        <div class="sub" id="sub">Episode 213 · S12:E1</div>
+        <div class="detail" id="detail"></div>
+
+        <div class="rows">
+          <div class="row"><span>This run</span><b id="run">—</b></div>
+          <div class="row"><span>Next filler</span><b id="next-filler">—</b></div>
+          <div class="row"><span>Next mixed</span><b id="next-mixed">—</b></div>
+        </div>
+      </div>
+
+      <details class="tools">
+        <summary>Numbering</summary>
+        <p class="hint">
+          Disney+ counts episodes inside a season. The filler list counts them
+          across the whole show. If the episode number below is wrong, type the
+          real one and save.
+        </p>
+        <div class="calibrate">
+          <label for="actual">This is really episode</label>
+          <input id="actual" type="number" min="1" max="366" />
+          <button id="save">Save</button>
+        </div>
+        <label class="check"><input type="checkbox" id="absolute" /> Disney+ already numbers these absolutely</label>
+        <label class="check"><input type="checkbox" id="quiet" /> Only pop up for filler and mixed</label>
+        <label class="check"><input type="checkbox" id="skipcheck" /> Run even if the page does not say Bleach</label>
+        <button id="reset" class="link">Reset season offsets</button>
+        <div class="note" id="note"></div>
+      </details>
+    </div>
+    <script src="episodes.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
